@@ -33,7 +33,8 @@ pi --skill ~/.agents/skills/drawio
 - Optionally exports with draw.io Desktop CLI.
 - Embeds diagram XML into PNG, SVG, and PDF exports.
 - Opens the result when possible.
-- Includes helper scripts for export, opening, and optional post-processing.
+- Includes layout quality guidance to reduce clipping, label collisions, and messy edge routing.
+- Includes helper scripts for layout checks, export, opening, and optional post-processing.
 
 ## Optional requirements
 
@@ -49,9 +50,11 @@ CLI locations checked by the helper:
 
 ```text
 SKILL.md                         Skill instructions
+scripts/check-drawio-layout.py    Lightweight XML/layout checker
 scripts/drawio-export.sh          Export helper
 scripts/open-result.sh            Cross-platform open helper
 scripts/postprocess-drawio.sh     Optional no-install postprocess helper
+references/layout-quality.md      Visual layout quality rules
 references/xml-quick-reference.md XML snippets and rules
 ```
 

@@ -14,15 +14,18 @@ Generate native draw.io diagrams as `.drawio` files. When requested, export them
 1. Determine the requested diagram type, filename, and output format.
 2. Generate draw.io XML directly in `mxGraphModel` format.
 3. Write the XML to a `.drawio` file in the current working directory.
-4. Validate basic XML well-formedness before export/opening when possible.
-5. Optionally post-process edge routing if the helper can run without installing anything.
-6. If the user requested PNG/SVG/PDF/JPG, export with the draw.io Desktop CLI if available.
-7. Open the exported result, or the `.drawio` source if no export was requested or export is unavailable.
-8. If opening fails, print the absolute file path.
+4. Validate XML well-formedness and run the lightweight layout checker when possible.
+5. Apply the visual quality rules in `references/layout-quality.md`: margins, spacing, explicit edge routing, no clipped actors, and no edge-label collisions.
+6. Optionally post-process edge routing if the helper can run without installing anything.
+7. If the user requested PNG/SVG/PDF/JPG, export with the draw.io Desktop CLI if available.
+8. For image exports, visually self-review the rendered PNG/SVG/PDF when the environment allows reading or previewing it.
+9. Open the exported result, or the `.drawio` source if no export was requested or export is unavailable.
+10. If opening fails, print the absolute file path.
 
 Use the scripts in this skill directory when helpful:
 
 ```bash
+./scripts/check-drawio-layout.py diagram.drawio
 ./scripts/postprocess-drawio.sh diagram.drawio
 ./scripts/drawio-export.sh diagram.drawio png diagram.drawio.png
 ./scripts/open-result.sh diagram.drawio.png
@@ -96,6 +99,31 @@ Edges must not be self-closing. Every edge needs a geometry child:
   <mxGeometry relative="1" as="geometry"/>
 </mxCell>
 ```
+
+## Visual layout quality rules
+
+Good XML is not enough. The diagram must render cleanly.
+
+Mandatory layout rules:
+
+- Keep visible elements at least 40 px inside the page bounds.
+- Never place actors, labels, or arrowheads partly off-canvas.
+- Keep nodes away from container borders and swimlane headers.
+- Use a grid with generous row/column spacing.
+- Avoid edge labels by default; labels on edges often collide with nodes after draw.io routing.
+- Prefer descriptive node text or separate text cells placed away from connectors.
+- Use explicit orthogonal edge routing with `exitX`, `exitY`, `entryX`, `entryY`, and waypoints for non-trivial edges.
+- Avoid arrows crossing through node text, other nodes, or container labels.
+- For cloud architecture diagrams, put edge services on the top row, network/VPC in the middle, app/data tiers inside subnets, and regional managed services clearly inside the cloud boundary.
+- After export, visually self-review the rendered image if possible and fix clipped content, label collisions, crossing arrows, or confusing containment before final response.
+
+Run the bundled checker when possible:
+
+```bash
+/path/to/drawio/scripts/check-drawio-layout.py diagram.drawio
+```
+
+Then consult `references/layout-quality.md` for detailed rules and patterns.
 
 ## XML well-formedness rules
 
@@ -176,7 +204,7 @@ Equivalent platform commands:
 
 ## Reference
 
-For more draw.io XML patterns, consult `references/xml-quick-reference.md` in this skill. For the complete upstream reference, fetch and follow:
+For more draw.io XML patterns, consult `references/xml-quick-reference.md` in this skill. For layout rules and visual quality checks, consult `references/layout-quality.md`. For the complete upstream reference, fetch and follow:
 
 https://raw.githubusercontent.com/jgraph/drawio-mcp/main/shared/xml-reference.md
 
