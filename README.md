@@ -9,7 +9,7 @@ The PNG, SVG, and PDF export path uses draw.io Desktop's CLI with embedded diagr
 Clone this repository into a Pi skill discovery directory:
 
 ```bash
-git clone https://github.com/ethanolivertroy/drawio ~/.agents/skills/drawio
+git clone https://github.com/ethanolivertroy/drawio-skill ~/.agents/skills/drawio
 ```
 
 Restart Pi, then ask for diagrams naturally:
