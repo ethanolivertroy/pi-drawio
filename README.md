@@ -1,30 +1,50 @@
-# Draw.io Skill for Pi
+# pi-drawio
 
-An Agent Skills-compatible skill for generating native draw.io diagrams as `.drawio` files and optionally exporting them to PNG, SVG, PDF, or JPG.
+A Pi package that adds a `drawio` skill for generating native draw.io diagrams as `.drawio` files and optionally exporting them to PNG, SVG, PDF, or JPG.
 
-The PNG, SVG, and PDF export path uses draw.io Desktop's CLI with embedded diagram XML, so exported files remain editable in draw.io.
+PNG, SVG, and PDF exports use draw.io Desktop's CLI with embedded diagram XML, so exported files remain editable in draw.io.
 
 ## Install
 
-Clone this repository into a Pi skill discovery directory:
+Recommended: install as a Pi package from GitHub:
 
 ```bash
-git clone https://github.com/ethanolivertroy/pi-drawio ~/.agents/skills/drawio
+pi install git:github.com/ethanolivertroy/pi-drawio
 ```
 
-Restart Pi, then ask for diagrams naturally:
+Then restart Pi or run `/reload` in an existing Pi session.
+
+For a project-local install, add `-l` from the project directory:
+
+```bash
+pi install -l git:github.com/ethanolivertroy/pi-drawio
+```
+
+To try it for one run without adding it to settings:
+
+```bash
+pi -e git:github.com/ethanolivertroy/pi-drawio
+```
+
+After install, use the skill command:
 
 ```text
-/drawio create a flowchart for password reset
-/drawio png architecture diagram for a web app with CDN, API, queue, workers, and Postgres
-/drawio svg ER diagram for users, teams, projects, and tasks
+/skill:drawio create a flowchart for password reset
+/skill:drawio png architecture diagram for a web app with CDN, API, queue, workers, and Postgres
+/skill:drawio svg ER diagram for users, teams, projects, and tasks
 ```
 
-You can also load it explicitly:
+You can also ask naturally; Pi should load the skill when your request mentions diagrams, draw.io, `.drawio`, PNG/SVG/PDF export, architecture diagrams, ER diagrams, flowcharts, mockups, and related tasks.
+
+### Manual clone alternative
+
+If you prefer not to use `pi install`, clone into a skill discovery directory:
 
 ```bash
-pi --skill ~/.agents/skills/drawio
+git clone https://github.com/ethanolivertroy/pi-drawio ~/.pi/agent/skills/pi-drawio
 ```
+
+Pi recursively discovers `skills/drawio/SKILL.md` from that checkout.
 
 ## What it does
 
@@ -46,16 +66,20 @@ CLI locations checked by the helper:
 - macOS: `/Applications/draw.io.app/Contents/MacOS/draw.io`
 - WSL2 default and per-user Windows install paths
 
-## Files
+## Package structure
 
 ```text
-SKILL.md                         Skill instructions
-scripts/check-drawio-layout.py    Lightweight XML/layout checker
-scripts/drawio-export.sh          Export helper
-scripts/open-result.sh            Cross-platform open helper
-scripts/postprocess-drawio.sh     Optional no-install postprocess helper
-references/layout-quality.md      Visual layout quality rules
-references/xml-quick-reference.md XML snippets and rules
+package.json                       Pi package manifest
+skills/drawio/SKILL.md             Skill instructions
+skills/drawio/scripts/             Export/open/check helpers
+skills/drawio/references/          XML and layout references
+```
+
+## Update or remove
+
+```bash
+pi update git:github.com/ethanolivertroy/pi-drawio
+pi remove git:github.com/ethanolivertroy/pi-drawio
 ```
 
 ## License

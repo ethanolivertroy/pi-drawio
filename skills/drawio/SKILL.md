@@ -31,11 +31,7 @@ Use the scripts in this skill directory when helpful:
 ./scripts/open-result.sh diagram.drawio.png
 ```
 
-When using scripts from another directory, call them with their full path, for example:
-
-```bash
-/Users/ethantroy/.agents/skills/drawio/scripts/drawio-export.sh diagram.drawio svg diagram.drawio.svg
-```
+When using scripts from another directory, call them with the absolute path to this skill directory. For package installs, the skill directory is usually inside Pi's package cache under `skills/drawio`.
 
 ## Choosing the output format
 
@@ -43,11 +39,11 @@ Infer the output format from the user's request.
 
 Examples:
 
-- `/drawio create a flowchart` -> `flowchart.drawio`
-- `/drawio png flowchart for login` -> `login-flow.drawio.png`
-- `/drawio svg: ER diagram` -> `er-diagram.drawio.svg`
-- `/drawio pdf architecture overview` -> `architecture-overview.drawio.pdf`
-- `/drawio jpg homepage wireframe` -> `homepage-wireframe.drawio.jpg`
+- `/skill:drawio create a flowchart` -> `flowchart.drawio`
+- `/skill:drawio png flowchart for login` -> `login-flow.drawio.png`
+- `/skill:drawio svg: ER diagram` -> `er-diagram.drawio.svg`
+- `/skill:drawio pdf architecture overview` -> `architecture-overview.drawio.pdf`
+- `/skill:drawio jpg homepage wireframe` -> `homepage-wireframe.drawio.jpg`
 
 If no format is mentioned, create and open only the `.drawio` file.
 
@@ -120,7 +116,7 @@ Mandatory layout rules:
 Run the bundled checker when possible:
 
 ```bash
-/path/to/drawio/scripts/check-drawio-layout.py diagram.drawio
+./scripts/check-drawio-layout.py diagram.drawio
 ```
 
 Then consult `references/layout-quality.md` for detailed rules and patterns.
@@ -153,7 +149,7 @@ PY diagram.drawio
 The draw.io Desktop app includes a command-line export interface. Prefer the bundled helper script because it handles macOS, Linux, and WSL2 detection:
 
 ```bash
-/path/to/drawio/scripts/drawio-export.sh <input.drawio> <png|svg|pdf|jpg> [output-file]
+./scripts/drawio-export.sh <input.drawio> <png|svg|pdf|jpg> [output-file]
 ```
 
 The helper uses:
@@ -180,7 +176,7 @@ If the CLI is not found, keep the `.drawio` file and tell the user they can inst
 If available locally, `npx --no-install @drawio/postprocess` can optimize edge routing. Use the helper and skip failures silently:
 
 ```bash
-/path/to/drawio/scripts/postprocess-drawio.sh diagram.drawio
+./scripts/postprocess-drawio.sh diagram.drawio
 ```
 
 Do not install `@drawio/postprocess` automatically. Do not ask the user about it.
@@ -190,7 +186,7 @@ Do not install `@drawio/postprocess` automatically. Do not ask the user about it
 Use the helper when possible:
 
 ```bash
-/path/to/drawio/scripts/open-result.sh <file>
+./scripts/open-result.sh <file>
 ```
 
 Equivalent platform commands:

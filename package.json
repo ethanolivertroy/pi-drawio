@@ -1,0 +1,19 @@
+{
+  "name": "pi-drawio",
+  "version": "0.1.0",
+  "description": "Pi skill for generating native draw.io diagrams and exports",
+  "license": "MIT",
+  "keywords": [
+    "pi-package",
+    "pi",
+    "agent-skills",
+    "drawio",
+    "diagrams",
+    "mxgraph"
+  ],
+  "pi": {
+    "skills": [
+      "./skills"
+    ]
+  }
+}
