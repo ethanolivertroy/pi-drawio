@@ -6,10 +6,10 @@ PNG, SVG, and PDF exports use draw.io Desktop's CLI with embedded diagram XML, s
 
 ## Install
 
-Recommended: install as a Pi package from GitHub:
+Recommended: install as a Pi package from npm:
 
 ```bash
-pi install git:github.com/ethanolivertroy/pi-drawio
+pi install npm:pi-drawio
 ```
 
 Then restart Pi or run `/reload` in an existing Pi session.
@@ -17,13 +17,19 @@ Then restart Pi or run `/reload` in an existing Pi session.
 For a project-local install, add `-l` from the project directory:
 
 ```bash
-pi install -l git:github.com/ethanolivertroy/pi-drawio
+pi install -l npm:pi-drawio
 ```
 
 To try it for one run without adding it to settings:
 
 ```bash
-pi -e git:github.com/ethanolivertroy/pi-drawio
+pi -e npm:pi-drawio
+```
+
+You can also install directly from GitHub:
+
+```bash
+pi install git:github.com/ethanolivertroy/pi-drawio
 ```
 
 After install, use the skill command:

@@ -3,13 +3,27 @@
   "version": "0.1.0",
   "description": "Pi skill for generating native draw.io diagrams and exports",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ethanolivertroy/pi-drawio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ethanolivertroy/pi-drawio/issues"
+  },
+  "homepage": "https://github.com/ethanolivertroy/pi-drawio#readme",
   "keywords": [
     "pi-package",
     "pi",
     "agent-skills",
     "drawio",
+    "draw.io",
     "diagrams",
     "mxgraph"
+  ],
+  "files": [
+    "LICENSE",
+    "README.md",
+    "skills/"
   ],
   "pi": {
     "skills": [
